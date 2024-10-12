@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "PVC Pencere ve Kapı Sistemleri",
+    "picture": "assets/images/products/1.webp",
+    "price": "DETAYLAR",
+    "nav": "/pvc-pencere-kapi-sistemleri"
+  },
+  {
+    "id": 2,
+    "title": "Cam Balkon Sistemleri",
+    "picture": "assets/images/products/2.webp",
+    "price": "DETAYLAR",
+    "nav": "/cam-balkon"
+  },
+  {
+    "id": 3,
+    "title": "Alüminyum Korkuluk Küpeşte",
+    "picture": "assets/images/aluminyum/122.webp",
+    "price": "DETAYLAR",
+    "nav": "/aluminyum"
+  }
+]
