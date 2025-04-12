@@ -10,6 +10,7 @@ function Header() {
   const [expanded, setExpanded] = useState(false);
   const [showSubMenu, setShowSubMenu] = useState(false);
   const [activeSubMenu, setActiveSubMenu] = useState(null);
+  const [isHovering, setIsHovering] = useState(false);
 
   const handleClick = (event) => {
     // Eğer tıklanan element bir alt menü öğesi ise menüyü kapatma
@@ -27,30 +28,11 @@ function Header() {
   };
 
   const handleMouseEnter = () => {
-    // Gecikme ekleyerek menünün hemen kapanmamasını sağla
-    setTimeout(() => {
-      setShowSubMenu(true);
-    }, 200); // 200 milisaniye gecikme (istediğiniz süreyi ayarlayabilirsiniz)
+    setIsHovering(true);
   };
 
   const handleMouseLeave = () => {
-    // Gecikme ekleyerek menünün hemen kapanmamasını sağla
-    setTimeout(() => {
-      // Eğer alt menüde değilse ve menüye tıklanılmış değilse, alt menüyü kapat
-      if (!showSubMenu && !expanded) {
-        setShowSubMenu(false);
-      }
-    }, 200); // 200 milisaniye gecikme (istediğiniz süreyi ayarlayabilirsiniz)
-  };
-
-  const handleSubMenuToggle = (menuId) => {
-    if (activeSubMenu === menuId) {
-      setActiveSubMenu(null);
-      setShowSubMenu(false); // Alt menüyü kapat
-    } else {
-      setActiveSubMenu(menuId);
-      setShowSubMenu(true); // Alt menüyü aç
-    }
+    setIsHovering(false);
   };
 
   const handleSubMenuLinkClick = (event) => {
@@ -178,74 +160,51 @@ function Header() {
                       {t("Hakkımızda")}
                     </Link>
                   </li>
-                  <NavDropdown
-                    title={t("Ürünlerimiz")}
-                    id="basic-nav-dropdown1"
-                    show={activeSubMenu === 1}
-                    onMouseEnter={() => handleSubMenuToggle(1)}
-                    onMouseLeave={() => handleSubMenuToggle(1)}
+                  <li 
+                    className={`nav-item dropdown ${isHovering ? 'show' : ''}`}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
                   >
-                    <li
-                      className={`nav-item dropdown ${
-                        showSubMenu ? "show" : ""
-                      }`}
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
+                    <a 
+                      className="nav-link dropdown-toggle" 
+                      href="#" 
+                      role="button"
                     >
-                      <li>
-                        <Link
-                          className="nav-link"
-                          as={Link}
-                          to="/pvc-pencere-kapi-sistemleri"
-                          onClick={(event) => {
-                            handleSubMenuLinkClick(event);
-                            handleClick(event);
-                          }}
-                        >
-                          <i
-                            className="fa fa-chevron-right"
-                            style={{ fontSize: "13px" }}
-                          ></i>
-                          &nbsp;
-                          {t("PVC Pencere ve Kapı")}
-                        </Link>
-                      </li>
+                      {t("Ürünlerimiz")}
+                    </a>
+                    <div className={`dropdown-menu ${isHovering ? 'show' : ''}`}>
                       <Link
-                        className="nav-link"
+                        className="dropdown-item"
+                        as={Link}
+                        to="/pvc-pencere-kapi-sistemleri"
+                        onClick={handleClick}
+                      >
+                        <i className="fa fa-chevron-right" style={{ fontSize: "13px" }}></i>
+                        &nbsp;
+                        {t("PVC Pencere ve Kapı")}
+                      </Link>
+                      <Link
+                        className="dropdown-item"
                         as={Link}
                         to="/cam-balkon"
-                        onClick={(event) => {
-                          handleSubMenuLinkClick(event);
-                          handleClick(event);
-                        }}
+                        onClick={handleClick}
                       >
-                        <i
-                          className="fa fa-chevron-right"
-                          style={{ fontSize: "13px" }}
-                        ></i>
+                        <i className="fa fa-chevron-right" style={{ fontSize: "13px" }}></i>
                         &nbsp;
                         {t("Cam Balkon Sistemleri")}
                       </Link>
-
                       <Link
-                        className="nav-link"
+                        className="dropdown-item"
                         as={Link}
                         to="/aluminyum"
-                        onClick={(event) => {
-                          handleSubMenuLinkClick(event);
-                          handleClick(event);
-                        }}
+                        onClick={handleClick}
                       >
-                        <i
-                          className="fa fa-chevron-right"
-                          style={{ fontSize: "13px" }}
-                        ></i>
+                        <i className="fa fa-chevron-right" style={{ fontSize: "13px" }}></i>
                         &nbsp;
                         {t("Alüminyum Korkuluk Küpeşte")}
                       </Link>
-                    </li>
-                  </NavDropdown>
-
+                    </div>
+                  </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link"
